@@ -6,6 +6,6 @@ South African Maps covering from Province, District Municipality, Local Municipa
 Here is a link to examples https://datawizzards.github.io/zadmaps/
 
 ## Contributors
-___
-[https://github.com/Ofentswe1](Ofentswe Lebogo)
+
+[Ofentswe Lebogo](https://github.com/Ofentswe1)
 
