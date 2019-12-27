@@ -1,60 +1,74 @@
 <!doctype html>
 <html>
     <head>
-        <meta charset="utf-8"/>
-        <title>Testing Raphael</title>
+        <meta charset="utf-8">
+        <title>ZAD Maps</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/fonts.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-    	<script src="js/jquery.min.js" type="text/javascript"></script>
-        <script src="js/raphael.min.js" type="text/javascript"></script>
-        
-        <script type="text/javascript">
-
-		$.getJSON("geojson/map_data.json", function( data ){
-			var paper = Raphael(0, 0, 2000, 2000);
-			var elementSet = paper.set();
-			var attrs = {"type":"path","stroke":"none"};
-			var sa = {}
-
-			$.each(data, function(i, province) {
-				console.log(province, i);
-				attrs.fill = province.color;
-			    sa[province.name] = paper.path(province.path).attr(attrs);
-                sa[province.name].name = province.name;
-			});
-
-			$.each(sa, function(i, st) {
-				st.node.onclick = function() {
-					paper.clear();
-                    var filename = "geojson/" + st.name.toLowerCase().replace(" ", "") + ".json";
-                    var map_shapes = {
-                        "Gauteng": {"transform": "s4.5,4.5 0,0", "paper": Raphael(-2200, -500, 3000, 2000)},
-                        "Limpopo": {"transform": "s3,3 0,0", "paper": Raphael(-1400, 100, 3000, 2000)},
-                        "Free State": {"transform": "s3,3 0,0", "paper": Raphael(-900, -500, 3000, 2000)},
-                        "Northern Cape": {"transform": "s2,2 0,0", "paper": Raphael(100, -200, 3000, 2000)},
-                        "Mpumalanga": {"transform": "s4,4 0,0", "paper": Raphael(-2100, -200, 3000, 2000)},
-                        "Western Cape": {"transform": "s2.5,2.5 0,0", "paper": Raphael(0, -850, 3000, 2000)},
-                        "KwaZulu Natal": {"transform": "s2.5,2.5 0,0", "paper": Raphael(-1400, -500, 3000, 2000)},
-                        "Eastern Cape": {"tranform": "s2,2 0,0", "paper": Raphael(0, 0, 3000, 2000)},
-                        "North West": {"transform": "s2.5,2.5 0,0", "paper": Raphael(-600, -200, 3000, 2000)}
-                    }
-
-					var attrs = {"type":"path","stroke":"none"};
-					var sa = {};
-					var provinces = map_shapes[st.name].paper.set();
-
-                    $.getJSON( filename, function( data ) {
-                            $.each(data, function(i, munic) {
-                                attrs.fill = munic.color;
-                                sa[munic.name] = map_shapes[munic.province].paper.path(munic.path).attr(attrs);
-                                provinces.push(sa[munic.name]);
-                                sa[munic.name].name = munic.name;
-                                sa[munic.name].transform(map_shapes[munic.province].transform);
-                           });
-                    });
-                };
-			});
-		});
-        </script>
+      <header class="u-clearfix">
+          <div class="logo">
+            <a href="" target="_blank" rel="noopener">
+              <h2>ZAD Maps</h2>
+            </a>
+          </div>
+          <div class="release-notes">
+            <p>Version 0.0.1</p>
+          </div>
+      </header>
+      <main>
+        <div class="figure">
+          <img src="img/logo1.png" class="figure__animation" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            
+          </img>
+        </div>
+        <h2>South African Data(ZAD) Maps</h2>
+        <p> Maps for South Africa from Wards to Province</p>
+      </main>
+      <footer class="u-clearfix">
+        <a href="https://docs.djangoproject.com/en/2.0/" target="_blank" rel="noopener">
+        <div class="option one">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <path d="M0 0h24v24H0V0z" id="a"></path>
+                </defs>
+                <clipPath id="b">
+                    <use overflow="visible" xlink:href="#a"></use>
+                </clipPath>
+                <path clip-path="url(#b)" d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"></path>
+            </svg>
+            <div>
+                <h4>ZAD Maps Documentation</h4>
+                <p>Topics, references, &amp; how-to's</p>
+            </div>
+        </div>
+      </a>
+      <a href="gettingstarted.html" target="_blank" rel="noopener">
+        <div class="option two">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0V0z" fill="none"></path>
+            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></path>
+          </svg>
+          <div>
+            <h4>ZAD Maps</h4>
+            <p>Get started with App</p>
+          </div>
+        </div>
+      </a>
+      <a href="https://www.djangoproject.com/community/" target="_blank" rel="noopener">
+        <div class="option three">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"></path>
+          </svg>
+          <div>
+            <h4>ZAD Maps Community</h4>
+            <p>Connect, get help, or contribute</p>
+          </div>
+        </div>
+      </a>
+      </footer>
     </body>
 </html>
