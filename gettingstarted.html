@@ -17,6 +17,19 @@
             stroke-linejoin: round;
             stroke-width:0.5;
           }
+
+          div.tooltip {
+            color: white;
+            position: absolute;
+            text-align: center;
+            width: 60px;
+            height: 28px;
+            padding: 2px;
+            font: 12px sans-serif;
+            background: rgba(0,0,0,.8);
+            border: 2px solid black;
+            pointer-events: none;
+          }
         </style>
     </head>
     <body>
@@ -32,9 +45,12 @@
       </header>
       <!-- Data Driven Documents (D3)-->
       <svg width="960" height="700"></svg>
+
+      <!-- Raphael Maps -->
       <main>
-        
       </main>
+
+      <!-- Footer start here -->
       <footer class="u-clearfix">
         <a href="https://docs.djangoproject.com/en/2.0/" target="_blank" rel="noopener">
         <div class="option one">
@@ -78,6 +94,8 @@
         </div>
       </a>
       </footer>
+      <!-- Footer Ends Here-->
+
       <script src="js/jquery.min.js" type="text/javascript"></script>
       <script src="js/raphael.min.js" type="text/javascript"></script>
       <script src="js/d3.min.js" type="text/javascript"></script>
@@ -113,6 +131,11 @@
         "Eastern Cape": "#FFB74D"
       }
 
+        var tooltip = d3.select('body')
+          .append('div')
+          .attr('class', 'tooltip')
+          .style('opacity', 0);
+
         var promises = [d3.json("geojson/za-provinces.topojson"),]
 
         Promise.all(promises).then(ready)
@@ -130,7 +153,23 @@
               .attr("fill", d => colors[d.properties.PROVINCE])//'#19865C')
               .attr("d", path)
             .append("title")
-              .text(d => d.properties.PROVINCE + ': ' + 7 + "%");
+              .text(d => d.properties.PROVINCE + ': ' + 7 + "%")
+            .on('mouseover', function(d){
+                console.log(d);
+              //   tooltip.transition()
+              //     .duration(200)
+              //     .style('opacity', 0.9);
+
+              //   tooltip.html(d.properties.PROVINCE + '<br/>' + d.properties.CODE)
+              //     .style('left', d3.event.pageX + 'px')
+              //     .style('top', d3.event.pageY - 28 + 'px');
+              // }
+              })
+              .on('mouseout', () => {
+                tooltip.transition()
+                  .duration(500)
+                  .style('opacity', 0);
+              });
 
           svg.append("path")
               .datum(topojson.mesh(data, data.arcs, (a, b) => a !== b))
