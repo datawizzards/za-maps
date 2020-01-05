@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/fonts.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+
         <style>
           .layer1 {
             fill: none;
@@ -19,16 +20,20 @@
           }
 
           div.tooltip {
-            color: white;
+            color: black;
             position: absolute;
             text-align: center;
-            width: 60px;
-            height: 28px;
+            width: 150px;
+            height: 40px;
             padding: 2px;
             font: 12px sans-serif;
-            background: rgba(0,0,0,.8);
-            border: 2px solid black;
+            background: rgba(255,255,255,.8);
+            border: 1px solid black;
             pointer-events: none;
+          }
+          
+          hr{
+            border: 1px solid #64B5F6;
           }
         </style>
     </head>
@@ -120,16 +125,29 @@
           .domain(d3.range(2, 10))
           .range(d3.schemeBlues[9]);
 
-        var colors = {"Northern Cape": "#64B5F6", 
-        "Mpumalanga":"#4DD0E1", 
-        "KwaZulu-Natal":"#81C784",
-        "Western Cape": "#BA68C8",
-        "Free State": "#DCE775",
-        "North West": "#FFF176",
-        "Gauteng": "#F06292",
-        "Limpopo": "#E57373",
-        "Eastern Cape": "#FFB74D"
-      }
+        var colors = {
+          "Northern Cape": "#64B5F6", 
+          "Mpumalanga":"#4DD0E1", 
+          "KwaZulu-Natal":"#81C784",
+          "Western Cape": "#BA68C8",
+          "Free State": "#DCE775",
+          "North West": "#FFF176",
+          "Gauteng": "#F06292",
+          "Limpopo": "#E57373",
+          "Eastern Cape": "#FFB74D"
+        }
+
+        var data_points = {
+          "Northern Cape": 253, 
+          "Mpumalanga": 550, 
+          "KwaZulu-Natal": 800,
+          "Western Cape": 600,
+          "Free State": 563,
+          "North West": 234,
+          "Gauteng":  223,
+          "Limpopo": 123,
+          "Eastern Cape": 12
+        }
 
         var tooltip = d3.select('body')
           .append('div')
@@ -149,27 +167,29 @@
               .attr("class", "layer1")
             .selectAll("path")
             .data(topojson.feature(data, data.objects.layer1).features)
+
             .enter().append("path")
               .attr("fill", d => colors[d.properties.PROVINCE])//'#19865C')
               .attr("d", path)
-            .append("title")
-              .text(d => d.properties.PROVINCE + ': ' + 7 + "%")
-            .on('mouseover', function(d){
-                console.log(d);
-              //   tooltip.transition()
-              //     .duration(200)
-              //     .style('opacity', 0.9);
+              .on('mouseover', function(d){
+                  console.log(d);
+                  tooltip.transition()
+                    .duration(200)
+                    .style('opacity', 0.9);
 
-              //   tooltip.html(d.properties.PROVINCE + '<br/>' + d.properties.CODE)
-              //     .style('left', d3.event.pageX + 'px')
-              //     .style('top', d3.event.pageY - 28 + 'px');
-              // }
-              })
+                  tooltip.html('<b>' + d.properties.PROVINCE + '</b><hr/>' + 'Number of people : ' + data_points[d.properties.PROVINCE])
+                    .style('left', d3.event.pageX + 'px')
+                    .style('top', d3.event.pageY - 28 +'px');
+                })
               .on('mouseout', () => {
                 tooltip.transition()
                   .duration(500)
                   .style('opacity', 0);
               });
+            // THIS IS TITLE TOOLTIP
+            // .append("title")
+            //   .text(d => d.properties.PROVINCE + ': ' + 7 + "%");
+
 
           svg.append("path")
               .datum(topojson.mesh(data, data.arcs, (a, b) => a !== b))
