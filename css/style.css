@@ -323,3 +323,33 @@ margin: 135px auto 0;
 margin-top: 50px;
 }
 }
+
+
+.layer1 {
+fill: none;
+}
+
+.province {
+fill: #fff;
+stroke: #fff;
+stroke-dasharray: 2,2;
+stroke-linejoin: round;
+/*stroke-width:0.5;*/
+}
+
+div.tooltip {
+color: black;
+position: absolute;
+text-align: center;
+width: 150px;
+height: 100px;
+padding: 2px;
+font: 12px sans-serif;
+background: rgba(255,255,255,.8);
+border: 1px solid black;
+pointer-events: none;
+}
+
+hr{
+border: 1px solid #64B5F6;
+}
