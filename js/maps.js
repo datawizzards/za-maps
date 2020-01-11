@@ -16,8 +16,8 @@ $(document).ready(function(){
 
 	function visualize(show){
 
-		d3.select("svg").remove(); 
-		//var svg = d3.select("main").append("svg").attr("width","960").attr("height", "700"),
+		d3.select("svg").remove();
+
 	    var svg = d3.select("main").append("svg").attr("width","960").attr("height", "700"),
 	        width = +svg.attr("width"),
 	        height = +svg.attr("height");
@@ -37,15 +37,24 @@ $(document).ready(function(){
 	        .range(d3.schemeBlues[9]);
 
 	    var colors = {
-	        "Northern Cape": "#64B5F6", 
+	        "Northern Cape": "#64B5F6",
+	        "NC": "#64B5F6",  
 	        "Mpumalanga":"#4DD0E1", 
+	        "MP":"#4DD0E1", 
 	        "KwaZulu-Natal":"#81C784",
+	        "KZN":"#81C784",
 	        "Western Cape": "#BA68C8",
+	        "WC": "#BA68C8",
 	        "Free State": "#DCE775",
+	        "FS": "#DCE775",
 	        "North West": "#FFF176",
+	        "NW": "#FFF176",
 	        "Gauteng": "#F06292",
+	        "GT": "#F06292",
 	        "Limpopo": "#E57373",
-	        "Eastern Cape": "#FFB74D"
+	        "LIM": "#E57373",
+	        "Eastern Cape": "#FFB74D",
+	        "EC": "#FFB74D"
 	    }
 
 	    var data_points = {
@@ -87,10 +96,9 @@ $(document).ready(function(){
 	          .data(topojson.feature(data, data.objects.layer1).features)
 
 	          .enter().append("path")
-	            .attr("fill", d => colors[d.properties.PROVINCE] || '#19865C')//'#19865C') colors[d.properties.PROVINCE] ||
+	            .attr("fill", d => colors[d.properties.PROVINCE] || '#19865C')
 	            .attr("d", path)
 	            .on('mouseover', function(d){
-	                //console.log(d);
 	                tooltip.transition()
 	                  .duration(200)
 	                  .style('opacity', 0.9);
